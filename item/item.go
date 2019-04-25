@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/obitech/micro-obs/util"
+	"github.com/micro-obs/util"
 	ot "github.com/opentracing/opentracing-go"
 	"github.com/pkg/errors"
 )

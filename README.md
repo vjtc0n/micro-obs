@@ -1,6 +1,6 @@
 # [micro-obs](https://github.comobitech/microservices-observability)
 
-[![Build Status](https://travis-ci.org/obitech/micro-obs.svg?branch=master)](https://travis-ci.org/obitech/micro-obs) [![Go Report Card](https://goreportcard.com/badge/github.com/obitech/micro-obs)](https://goreportcard.com/report/github.com/obitech/micro-obs) [![](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/obitech/micro-obs)
+[![Build Status](https://travis-ci.org/micro-obs.svg?branch=master)](https://travis-ci.org/micro-obs) [![Go Report Card](https://goreportcard.com/badge/github.com/micro-obs)](https://goreportcard.com/report/github.com/micro-obs) [![](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](https://hub.docker.com/r/micro-obs)
 
 ## Contents
 
@@ -76,7 +76,7 @@ To build it from source you need [Go 1.11+](https://golang.org/dl/) installed.
 This project uses [Go Modules](https://github.com/golang/go/wiki/Modules) so you can clone the repo to anywhere:
 
 ```bash
-git clone https://github.com/obitech/micro-obs.git
+git clone https://github.com/micro-obs.git
 cd micro-obs/
 ```
 
@@ -165,13 +165,13 @@ make build-dummy
 
 ### Docker
 
-Service|Location
----|---
-item API|http://localhost:8080/
-order API|http://localhost:8090/
-Jaeger Query|http://localhost:16686/
-Prometheus|http://localhost:9090/
-Grafana|http://localhost:3000/
+| Service      | Location                |
+| ------------ | ----------------------- |
+| item API     | http://localhost:8080/  |
+| order API    | http://localhost:8090/  |
+| Jaeger Query | http://localhost:16686/ |
+| Prometheus   | http://localhost:9090/  |
+| Grafana      | http://localhost:3000/  |
 
 #### Preparation
 
@@ -208,18 +208,18 @@ After sending some requests, logs can be queried via Kibana running on http://lo
 
 ### Kubernetes
 
-Service|Location|Internal FQDN
----|---|---
-item API|http://localhost:30808|http://item.micro-obs.service.cluster.local:8080
-item Redis|.|redis-item.micro-obs.service.cluster.local:3879
-order API|http://localhost:30809|http://order.micro-obs.service.cluster.local:8090
-order Redis|.|http://redis-order.micro-obs.service.cluster.local:3879
-Jaeger Query|http://localhost:30686|.
-Prometheus|http://localhost:30900|http://prometheus.monitoring.svc.cluster.local:9090
-Grafana|http://localhost:30300|.
-ElasticSearch|.|http://elasticsearch.monitoring.svc.cluster.local:9200
-Kibana|http://localhost:30601|.
-Mailhog|http://localhost:32025|mailhog.svc.cluster.local:1025
+| Service       | Location               | Internal FQDN                                           |
+| ------------- | ---------------------- | ------------------------------------------------------- |
+| item API      | http://localhost:30808 | http://item.micro-obs.service.cluster.local:8080        |
+| item Redis    | .                      | redis-item.micro-obs.service.cluster.local:3879         |
+| order API     | http://localhost:30809 | http://order.micro-obs.service.cluster.local:8090       |
+| order Redis   | .                      | http://redis-order.micro-obs.service.cluster.local:3879 |
+| Jaeger Query  | http://localhost:30686 | .                                                       |
+| Prometheus    | http://localhost:30900 | http://prometheus.monitoring.svc.cluster.local:9090     |
+| Grafana       | http://localhost:30300 | .                                                       |
+| ElasticSearch | .                      | http://elasticsearch.monitoring.svc.cluster.local:9200  |
+| Kibana        | http://localhost:30601 | .                                                       |
+| Mailhog       | http://localhost:32025 | mailhog.svc.cluster.local:1025                          |
 
 #### Preparation
 
@@ -246,18 +246,18 @@ Both the Kubernetes' internal components as well as the `micro-obs` application 
 
 TODO
 
-## [item](https://godoc.org/github.com/obitech/micro-obs/item)
-[![godoc reference for item](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/obitech/micro-obs/item) 
+## [item](https://godoc.org/github.com/micro-obs/item)
+[![godoc reference for item](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/micro-obs/item) 
 
-Method|Endpoint|Comment
----|---|---
-GET|`/healthz`|Returns `OK` as string
-GET|`/ping`|Returns a standard API response
-GET|`/items`|Returns all items
-GET|`/items/{id:[a-zA-Z0-9]+}`|Returns a single item by ID
-DELETE|`/items/{id:[a-zA-Z0-9]+}`|Deletes a single item by ID
-POST|`/items`|Sends a JSON body to create a new item. Will not update if item already exists
-PUT|`/items`|Sends a JSON body to create or update an item. Will update existing item
+| Method | Endpoint                   | Comment                                                                        |
+| ------ | -------------------------- | ------------------------------------------------------------------------------ |
+| GET    | `/healthz`                 | Returns `OK` as string                                                         |
+| GET    | `/ping`                    | Returns a standard API response                                                |
+| GET    | `/items`                   | Returns all items                                                              |
+| GET    | `/items/{id:[a-zA-Z0-9]+}` | Returns a single item by ID                                                    |
+| DELETE | `/items/{id:[a-zA-Z0-9]+}` | Deletes a single item by ID                                                    |
+| POST   | `/items`                   | Sends a JSON body to create a new item. Will not update if item already exists |
+| PUT    | `/items`                   | Sends a JSON body to create or update an item. Will update existing item       |
 
 Request:
 
@@ -312,17 +312,17 @@ Response:
 }
 ```
 
-## [order](https://godoc.org/github.com/obitech/micro-obs/order)
-[![godoc reference for ](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/obitech/micro-obs/order) 
+## [order](https://godoc.org/github.com/micro-obs/order)
+[![godoc reference for ](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/micro-obs/order) 
 
-Method|Endpoint|Comment
----|---|---
-GET|`/healthz`|Returns `OK` as string
-GET|`/ping`|Returns a standard API response
-GET|`/orders`|Returns all orders
-GET|`/orders/{id:[0-9]+}`|Returns a single order by ID
-DELETE|`/orders/{id:[a-zA-Z0-9]+}`|Deletes a single order by ID
-POST|`/orders/create`|Creates a new order. Will query the `item` service first to check if passed items exist and are present in the wished quantity
+| Method | Endpoint                    | Comment                                                                                                                        |
+| ------ | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| GET    | `/healthz`                  | Returns `OK` as string                                                                                                         |
+| GET    | `/ping`                     | Returns a standard API response                                                                                                |
+| GET    | `/orders`                   | Returns all orders                                                                                                             |
+| GET    | `/orders/{id:[0-9]+}`       | Returns a single order by ID                                                                                                   |
+| DELETE | `/orders/{id:[a-zA-Z0-9]+}` | Deletes a single order by ID                                                                                                   |
+| POST   | `/orders/create`            | Creates a new order. Will query the `item` service first to check if passed items exist and are present in the wished quantity |
 
 Request:
 
@@ -367,8 +367,8 @@ Response:
 }
 ```
 
-## [util](https://godoc.org/github.com/obitech/micro-obs/util)
-[![godoc reference for util](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/obitech/micro-obs/util) 
+## [util](https://godoc.org/github.com/micro-obs/util)
+[![godoc reference for util](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/micro-obs/util) 
 
 ## License
 

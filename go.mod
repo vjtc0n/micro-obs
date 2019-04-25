@@ -1,4 +1,4 @@
-module github.com/obitech/micro-obs
+module github.com/micro-obs
 
 require (
 	github.com/alicebob/gopher-json v0.0.0-20180125190556-5a6b3ba71ee6 // indirect

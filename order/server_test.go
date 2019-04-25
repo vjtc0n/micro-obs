@@ -12,7 +12,7 @@ import (
 	"testing"
 
 	"github.com/alicebob/miniredis"
-	"github.com/obitech/micro-obs/util"
+	"github.com/micro-obs/util"
 )
 
 var (

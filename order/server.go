@@ -15,7 +15,7 @@ import (
 
 	"github.com/go-redis/redis"
 	"github.com/gorilla/mux"
-	"github.com/obitech/micro-obs/util"
+	"github.com/micro-obs/util"
 	ot "github.com/opentracing/opentracing-go"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"

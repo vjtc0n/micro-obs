@@ -10,7 +10,7 @@ import (
 
 	"github.com/alicebob/miniredis"
 	"github.com/go-redis/redis"
-	"github.com/obitech/micro-obs/item"
+	"github.com/micro-obs/item"
 )
 
 func helperPrepareMiniredis(t *testing.T) (*redis.Client, *miniredis.Miniredis) {

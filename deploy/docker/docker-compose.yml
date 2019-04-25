@@ -1,30 +1,30 @@
-version: "3.3"
+version: '3.3'
 services:
   jaeger:
     container_name: micro-obs-jaeger
     image: jaegertracing/all-in-one:1.8
     ports:
-      - "6831:6831/udp"
-      - "6832:6832/udp"
-      - "16686:16686"
+      - '6831:6831/udp'
+      - '6832:6832/udp'
+      - '16686:16686'
     restart: always
 
   prometheus:
     container_name: micro-obs-prometheus
     image: prom/prometheus:v2.5.0
     ports:
-      - "9090:9090"
+      - '9090:9090'
     volumes:
-      - "./conf/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
+      - './conf/prometheus.yml:/etc/prometheus/prometheus.yml:ro'
     restart: always
 
   grafana:
     container_name: micro-obs-grafana
     image: grafana/grafana:5.4.2
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
-      - "./data/grafana:/var/lib/grafana"
+      - './data/grafana:/var/lib/grafana'
     restart: always
 
   elasticsearch:
@@ -32,33 +32,33 @@ services:
     image: elastic/elasticsearch:6.5.4
     restart: always
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      xpack.security.enabled: "false"
-      xpack.watcher.enabled: "false"
-      xpack.graph.enabled: "false"
-      xpack.monitoring.enabled: "false"
-    
+      ES_JAVA_OPTS: '-Xmx256m -Xms256m'
+      xpack.security.enabled: 'false'
+      xpack.watcher.enabled: 'false'
+      xpack.graph.enabled: 'false'
+      xpack.monitoring.enabled: 'false'
+
   logstash:
     container_name: micro-obs-logstash
     image: elastic/logstash:6.5.4
     ports:
-      - "5000:5000"
+      - '5000:5000'
     volumes:
-      - "./conf/logstash.yml:/usr/share/logstash/config/logstash.yml:ro"
-      - "./conf/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
+      - './conf/logstash.yml:/usr/share/logstash/config/logstash.yml:ro'
+      - './conf/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro'
     environment:
-      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+      LS_JAVA_OPTS: '-Xmx256m -Xms256m'
     depends_on:
       - elasticsearch
     restart: always
-  
+
   kibana:
     container_name: micro-obs-kibana
     image: elastic/kibana:6.5.4
     ports:
-      - "5601:5601"
+      - '5601:5601'
     volumes:
-      - "./conf/kibana.yml:/usr/share/kibana/kibana.yml:ro"
+      - './conf/kibana.yml:/usr/share/kibana/kibana.yml:ro'
     depends_on:
       - elasticsearch
     restart: always
@@ -67,22 +67,28 @@ services:
     container_name: micro-obs-redis
     image: redis:5
     ports:
-      - "6379:6379"
+      - '6379:6379'
     restart: always
-    
+
   item:
     container_name: micro-obs-item
-    image: obitech/micro-obs:master
-    command: item -r redis://redis-item:6379/0
+    image: golang:1.11
+    command: go run main.go root.go runserver.go -r redis://redis-item:6379/0
+    volumes:
+      - '../../.:/micro-obs'
+    working_dir: '/micro-obs/cmd/item/'
     ports:
-      - "8080:8080"
+      - '8080:8080'
     environment:
-      - "JAEGER_AGENT_HOST=jaeger"
-      - "JAEGER_AGENT_PORT=6831"
+      - 'JAEGER_AGENT_HOST=jaeger'
+      - 'JAEGER_AGENT_PORT=6831'
+      - 'GOOS=linux'
+      - 'GOARCH=amd64'
+      - 'CGO_ENABLED=0'
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://127.0.0.1:5000"
+        syslog-address: 'tcp://127.0.0.1:5000'
         syslog-facility: daemon
         syslog-format: rfc5424
     depends_on:
@@ -95,7 +101,7 @@ services:
     image: redis:5
     command: redis-server --port 6380
     ports:
-      - "6380:6380"
+      - '6380:6380'
     restart: always
 
   order:
@@ -103,21 +109,21 @@ services:
     image: obitech/micro-obs:master
     command: order -r redis://redis-order:6380/0 -i http://item:8080
     ports:
-      - "8090:8090"
+      - '8090:8090'
     environment:
-      - "JAEGER_AGENT_HOST=jaeger"
-      - "JAEGER_AGENT_PORT=6831"
+      - 'JAEGER_AGENT_HOST=jaeger'
+      - 'JAEGER_AGENT_PORT=6831'
     logging:
       driver: syslog
       options:
-        syslog-address: "tcp://127.0.0.1:5000"
+        syslog-address: 'tcp://127.0.0.1:5000'
         syslog-facility: daemon
-        syslog-format: rfc5424 
+        syslog-format: rfc5424
     depends_on:
       - redis-order
       - logstash
     restart: always
-  
+
   redis-exporter:
     container_name: micro-obs-redis-exporter
     image: oliver006/redis_exporter:v0.24.0
@@ -126,5 +132,3 @@ services:
       - redis-item
       - redis-order
     restart: always
-
-      

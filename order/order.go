@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/obitech/micro-obs/item"
+	"github.com/micro-obs/item"
 	ot "github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 	"github.com/pkg/errors"

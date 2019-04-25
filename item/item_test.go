@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/obitech/micro-obs/util"
+	"github.com/micro-obs/util"
 )
 
 type redisMarshal struct {

@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/alicebob/miniredis"
-	"github.com/obitech/micro-obs/item"
+	"github.com/micro-obs/item"
 )
 
 var (

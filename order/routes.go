@@ -1,7 +1,7 @@
 package order
 
 import (
-	"github.com/obitech/micro-obs/util"
+	"github.com/micro-obs/util"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
