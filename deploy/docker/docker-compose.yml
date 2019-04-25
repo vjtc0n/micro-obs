@@ -174,45 +174,63 @@ services:
     image: consul
     ports:
       - 8500:8500
-
-  workers:
-    image: golang:latest
-    volumes:
-      - '../../.:/micro-obs'
-    working_dir: '/micro-obs/quizes'
-    # command: go run main.go --act=consumer
-    restart: on-failure
-    depends_on:
-      - postgres
-      - zookeeper
-      - kafka
-      - consul
-
-  migrate:
-    image: golang:latest
-    volumes:
-      - '../../.:/micro-obs'
-    working_dir: '/micro-obs/quizes'
-    # command: go run main.go --act=migrate
-    restart: on-failure
-    depends_on:
-      - postgres
-      - zookeeper
-      - kafka
-      - consul
-
-  quizes:
-    image: golang:latest
-    volumes:
-      - '../../.:/micro-obs'
-    working_dir: '/micro-obs/quizes'
-    # command: go run main.go
-    restart: on-failure
-    depends_on:
-      - postgres
-      - zookeeper
-      - kafka
-      - consul
-      - workers
-    ports:
-      - 8080:8080
+  # workers:
+  #   image: golang:latest
+  #   volumes:
+  #     - '../../.:/go/src/github.com/micro-obs'
+  #   working_dir: '/go/src/github.com/micro-obs/quizes'
+  #   command: go run main.go --act=consumer
+  #   environment:
+  #     GO111MODULE: 'on'
+  #   restart: on-failure
+  #   depends_on:
+  #     - postgres
+  #     - zookeeper
+  #     - kafka
+  #     - consul
+  #   links:
+  #     - postgres
+  #     - zookeeper
+  #     - kafka
+  #     - consul
+  # migrate:
+  #   image: golang:latest
+  #   volumes:
+  #     - '../../.:/go/src/github.com/micro-obs'
+  #   working_dir: '/go/src/github.com/micro-obs/quizes'
+  #   command: go run main.go --act=migrate
+  #   environment:
+  #     GO111MODULE: 'on'
+  #   restart: on-failure
+  #   depends_on:
+  #     - postgres
+  #     - zookeeper
+  #     - kafka
+  #     - consul
+  #   links:
+  #     - postgres
+  #     - zookeeper
+  #     - kafka
+  #     - consul
+  # quizes:
+  #   image: golang:latest
+  #   volumes:
+  #     - '../../.:/go/src/github.com/micro-obs'
+  #   working_dir: '/go/src/github.com/micro-obs/quizes'
+  #   command: go run main.go
+  #   environment:
+  #     GO111MODULE: 'on'
+  #   restart: on-failure
+  #   depends_on:
+  #     - postgres
+  #     - zookeeper
+  #     - kafka
+  #     - consul
+  #     - workers
+  #   links:
+  #     - postgres
+  #     - zookeeper
+  #     - kafka
+  #     - consul
+  #   ports:
+  #     - 8080:8080

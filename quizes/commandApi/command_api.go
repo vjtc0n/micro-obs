@@ -6,6 +6,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/micro-obs/quizes/broker"
 	"github.com/micro-obs/quizes/command"
+	"github.com/satori/go.uuid"
 )
 
 type I interface{}

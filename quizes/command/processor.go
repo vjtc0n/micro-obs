@@ -5,6 +5,7 @@ import (
 	"time"
 
 	u "github.com/micro-obs/quizes/util"
+	"github.com/satori/go.uuid"
 )
 
 type I interface{ Process() error }

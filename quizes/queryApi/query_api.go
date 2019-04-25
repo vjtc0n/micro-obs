@@ -6,6 +6,7 @@ import (
 	"github.com/jinzhu/copier"
 	"github.com/labstack/echo"
 	"github.com/micro-obs/quizes/util"
+	"github.com/satori/go.uuid"
 )
 
 func ListStudentHandler(ctx echo.Context) error {
